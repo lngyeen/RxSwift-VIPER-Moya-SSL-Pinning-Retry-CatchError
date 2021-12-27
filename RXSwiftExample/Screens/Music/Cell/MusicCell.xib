@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="81" id="KGk-i7-Jjw" customClass="MusicCell" customModule="RXSwiftExample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OWF-uq-29s">
+                        <rect key="frame" x="5" y="5" width="90" height="70"/>
+                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="1lh-Jo-XaO"/>
+                            <constraint firstAttribute="height" constant="70" id="Qtj-cV-8hT"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N3i-fq-8fg">
+                        <rect key="frame" x="100" y="5" width="182" height="36"/>
+                        <string key="text">Certified Lover Boy
+Drake</string>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBE-Ic-4X7">
+                        <rect key="frame" x="100" y="46" width="138" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwH-dy-M5c">
+                        <rect key="frame" x="261.5" y="25.5" width="48.5" height="30"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="Like">
+                            <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
+                        </buttonConfiguration>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="N3i-fq-8fg" secondAttribute="trailing" constant="60" id="3Kd-bu-vwc"/>
+                    <constraint firstItem="dBE-Ic-4X7" firstAttribute="trailing" secondItem="N3i-fq-8fg" secondAttribute="trailing" id="79X-3Z-Bvh"/>
+                    <constraint firstItem="OWF-uq-29s" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="J1u-wt-0tQ"/>
+                    <constraint firstAttribute="bottom" secondItem="OWF-uq-29s" secondAttribute="bottom" priority="750" constant="5" id="Myq-iK-0De"/>
+                    <constraint firstAttribute="trailing" secondItem="cwH-dy-M5c" secondAttribute="trailing" constant="10" id="PPc-r6-Qfl"/>
+                    <constraint firstItem="N3i-fq-8fg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="QY5-bs-I09"/>
+                    <constraint firstItem="cwH-dy-M5c" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aC3-yG-e3f"/>
+                    <constraint firstItem="dBE-Ic-4X7" firstAttribute="top" secondItem="N3i-fq-8fg" secondAttribute="bottom" constant="5" id="bUV-2j-DIX"/>
+                    <constraint firstItem="N3i-fq-8fg" firstAttribute="leading" secondItem="OWF-uq-29s" secondAttribute="trailing" constant="5" id="bUv-HP-0e8"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dBE-Ic-4X7" secondAttribute="bottom" constant="5" id="f1M-IV-HmJ"/>
+                    <constraint firstItem="OWF-uq-29s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="jrB-Kz-3UY"/>
+                    <constraint firstItem="dBE-Ic-4X7" firstAttribute="leading" secondItem="OWF-uq-29s" secondAttribute="trailing" constant="5" id="wcv-IP-Fdy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="artistNameLabel" destination="dBE-Ic-4X7" id="OQ8-5Z-FCI"/>
+                <outlet property="likeButton" destination="cwH-dy-M5c" id="RC4-4k-G0P"/>
+                <outlet property="nameLabel" destination="N3i-fq-8fg" id="0ov-DN-tpP"/>
+                <outlet property="thumbnailImageView" destination="OWF-uq-29s" id="X5K-8z-DOs"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="62.611607142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
