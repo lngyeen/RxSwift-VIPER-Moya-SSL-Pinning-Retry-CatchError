@@ -5,6 +5,7 @@
 //  Created by Nguyen Truong Luu on 12/23/21.
 //
 
+import Action
 import Foundation
 import RxCocoa
 import RxRelay
@@ -30,6 +31,7 @@ protocol MusicListPresenterOutputs {
 }
 
 protocol MusicListPresenter {
+    var dependencies: MusicListPresenterDependencies { get }
     var inputs: MusicListPresenterInputs { get }
     var outputs: MusicListPresenterOutputs { get }
 }
@@ -37,6 +39,7 @@ protocol MusicListPresenter {
 class MusicListPresenterImpl: MusicListPresenter, MusicListPresenterInputs, MusicListPresenterOutputs {
     var inputs: MusicListPresenterInputs { return self }
     var outputs: MusicListPresenterOutputs { return self }
+    let dependencies: MusicListPresenterDependencies
 
     // MARK: - Inputs
 
@@ -48,18 +51,41 @@ class MusicListPresenterImpl: MusicListPresenter, MusicListPresenterInputs, Musi
     // MARK: - Outputs
 
     var musics: Observable<[MusicViewModel]> { musicsBehaviorRelay.asObservable() }
-    var isLoading: Observable<Bool> { isLoadingPublishSubject.asObservable() }
-    var error: Observable<Error> { errorPublishSubject.asObservable() }
+
+    var isLoading: Observable<Bool> {
+        Observable.merge([
+            loadMoreMusicsAction.executing,
+            refreshMusicsAction.executing,
+        ])
+    }
+
+    var error: Observable<Error> {
+        Observable.merge([
+            loadMoreMusicsAction.underlyingError,
+            refreshMusicsAction.underlyingError,
+            errorPublishSubject,
+        ])
+    }
 
     // MARK: - Private properties
 
-    private let dependencies: MusicListPresenterDependencies
     private let disposeBag = DisposeBag()
     private var allMusics: [MusicViewModel] = []
     private var currentPage: Int = 0
     private let musicsBehaviorRelay: BehaviorRelay<[MusicViewModel]> = BehaviorRelay(value: [])
-    private let isLoadingPublishSubject = PublishSubject<Bool>()
     private let errorPublishSubject = PublishSubject<Error>()
+
+    private lazy var loadMoreMusicsAction: Action<Int, [Music]> = {
+        Action { page in
+            self.dependencies.interactor.fetchMusicsAtPage(page)
+        }
+    }()
+
+    private lazy var refreshMusicsAction: Action<Int, [Music]> = {
+        Action { _ in
+            self.dependencies.interactor.fetchMusicsAtPage(0)
+        }
+    }()
 
     init(dependencies: MusicListPresenterDependencies) {
         self.dependencies = dependencies
@@ -72,38 +98,39 @@ class MusicListPresenterImpl: MusicListPresenter, MusicListPresenterInputs, Musi
         // refresh trigger
         inputs
             .refreshTrigger
-            .startLoading(isLoadingPublishSubject)
-            .flatMap { [dependencies] in
-                dependencies.interactor.fetchMusicsAtPage(self.currentPage).materialize()
-            }
-            .stopLoading(isLoadingPublishSubject)
+            .map { self.currentPage }
+            .bind(to: refreshMusicsAction.inputs)
+            .disposed(by: disposeBag)
+
+        refreshMusicsAction.elements
             .subscribe(onNext: { [weak self] materializedEvent in
-                self?.processMusicsEvent(materializedEvent, isRefresing: true)
+                self?.processMusics(materializedEvent, isRefresing: true)
             }).disposed(by: disposeBag)
 
         // loadMore trigger
         inputs
             .loadMoreTrigger
-            .withLatestFrom(isLoadingPublishSubject)
+            .withLatestFrom(isLoading)
             .filter { !$0 }
             .withLatestFrom(inputs.searchTrigger)
             .filter { $0.isEmpty }
-            .startLoading(isLoadingPublishSubject)
-            .flatMap { [dependencies] _ -> Observable<Event<[Music]>> in
+            .map { _ -> Int in
                 self.currentPage += 1
-                return dependencies.interactor.fetchMusicsAtPage(self.currentPage).materialize()
+                return self.currentPage
             }
-            .stopLoading(isLoadingPublishSubject)
+            .bind(to: loadMoreMusicsAction.inputs)
+            .disposed(by: disposeBag)
+
+        loadMoreMusicsAction.elements
             .subscribe(onNext: { [weak self] materializedEvent in
-                self?.processMusicsEvent(materializedEvent, isRefresing: false)
+                self?.processMusics(materializedEvent, isRefresing: false)
             }).disposed(by: disposeBag)
 
         // showMusicDetail trigger
         inputs
             .showMusicDetailTrigger
-            .subscribe { [dependencies] (music: MusicViewModel) in
-                dependencies.router.showMusicDetail(music)
-            }.disposed(by: disposeBag)
+            .bind(to: dependencies.router.showMusicDetailTrigger)
+            .disposed(by: disposeBag)
 
         // search trigger
         inputs
@@ -113,23 +140,18 @@ class MusicListPresenterImpl: MusicListPresenter, MusicListPresenterInputs, Musi
             }.disposed(by: disposeBag)
     }
 
-    private func processMusicsEvent(_ event: Event<[Music]>, isRefresing: Bool = false) {
-        switch event {
-        case let .next(newMusics):
-            let newViewModels = newMusics.map { MusicViewModel(music: $0) }
-            setupLikeTriggers(newViewModels)
-            if isRefresing {
-                allMusics = newViewModels
-            } else {
-                allMusics += newViewModels
-            }
-            musicsBehaviorRelay.accept(allMusics)
-
-        case let .error(error):
-            errorPublishSubject.onNext(error)
-
-        default: break
+    private func processMusics(_ newMusics: [Music], isRefresing: Bool = false) {
+        let newViewModels = newMusics.map {
+            MusicViewModelImpl(music: $0,
+                               dependencies: MusicViewModelDependencies(interactor: dependencies.interactor))
         }
+        setupLikeTriggers(newViewModels)
+        if isRefresing {
+            allMusics = newViewModels
+        } else {
+            allMusics += newViewModels
+        }
+        musicsBehaviorRelay.accept(allMusics)
     }
 
     private func filterMusics(_ search: String) {
@@ -143,29 +165,11 @@ class MusicListPresenterImpl: MusicListPresenter, MusicListPresenterInputs, Musi
     private func setupLikeTriggers(_ newViewModels: [MusicViewModel]) {
         // like trigger
         for musicViewModel in newViewModels {
-            let music = musicViewModel.music
             musicViewModel
                 .outputs
-                .likeTrigger
-                .filter { isLiked in isLiked != music.isLiked }
-                .map { [dependencies] _ in
-                    dependencies.interactor.likeMusic(musicViewModel.music).materialize()
-                }
-                .switchLatest()
-                .subscribe(onNext: { [weak musicViewModel] materializedEvent in
-
-                    switch materializedEvent {
-                    case let .next(newMusic):
-                        if music.isLiked != newMusic.isLiked {
-                            musicViewModel?.updateMusic(newMusic)
-                        }
-
-                    case let .error(error):
-                        self.errorPublishSubject.onNext(error)
-
-                    default: break
-                    }
-                }).disposed(by: musicViewModel.disposeBag)
+                .error
+                .bind(to: errorPublishSubject)
+                .disposed(by: disposeBag)
         }
     }
 }

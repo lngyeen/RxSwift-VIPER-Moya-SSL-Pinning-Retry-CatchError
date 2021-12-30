@@ -8,6 +8,8 @@ target 'RXSwiftExample' do
   # Pods for RXSwiftExample
   pod 'RxSwift', '~> 5'
   pod 'RxCocoa', '~> 5'
+  pod 'RxFlow'
+  pod 'Action'
   pod 'RxSwiftExt', '~> 5'
   pod 'Kingfisher', '4.10.1'
   pod 'Reusable'

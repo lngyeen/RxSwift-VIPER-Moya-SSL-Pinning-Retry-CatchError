@@ -12,7 +12,7 @@ class WeatherCityAssembly: Assembly {
 
     func build() -> WeatherCityViewController {
         let controller = WeatherCityViewController()
-        let router = WeatherCityRouterImpl(viewController: controller)
+        let router = WeatherCityRouterImpl()
         let interactor = WeatherCityInteractorImpl(service: WeatherServiceImpl())
         let dependencies = WeatherCityPresenterDependencies(router: router, interactor: interactor)
         let presenter = WeatherCityPresenterImpl(dependencies: dependencies)

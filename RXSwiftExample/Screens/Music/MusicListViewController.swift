@@ -24,7 +24,12 @@ class MusicListViewController: BaseViewController {
 
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var tableView: UITableView!
-    
+    private lazy var button: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Refresh", for: .normal)
+        return button
+    }()
+
     // MARK: - Properties
 
     var presenter: MusicListPresenter?
@@ -41,6 +46,9 @@ class MusicListViewController: BaseViewController {
     override func setupUI() {
         super.setupUI()
         
+        title = "Musics"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         tableView.register(cellType: MusicCell.self)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         tableView.refreshControl = refreshControl
@@ -95,6 +103,9 @@ class MusicListViewController: BaseViewController {
             .rx
             .controlEvent(.valueChanged)
             .map { _ in () }
+            .bind(to: presenter.inputs.refreshTrigger)
+            .disposed(by: disposeBag)
+        button.rx.tap.map { () }
             .bind(to: presenter.inputs.refreshTrigger)
             .disposed(by: disposeBag)
         

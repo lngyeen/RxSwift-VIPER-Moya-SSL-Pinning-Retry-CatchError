@@ -72,6 +72,9 @@
 		F89649F32776ED440030E322 /* CocktailCategoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89649EF2776ED440030E322 /* CocktailCategoriesRouter.swift */; };
 		F89649F42776ED440030E322 /* CocktailCategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89649F02776ED440030E322 /* CocktailCategoriesInteractor.swift */; };
 		F8A2A8012775BDEA00B251D9 /* MusicErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2A8002775BDEA00B251D9 /* MusicErrorResponse.swift */; };
+		F8A2B928277CBC3600C81878 /* MainStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B925277CBC3600C81878 /* MainStepper.swift */; };
+		F8A2B929277CBC3600C81878 /* MainSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B926277CBC3600C81878 /* MainSteps.swift */; };
+		F8A2B92A277CBC3600C81878 /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B927277CBC3600C81878 /* MainFlow.swift */; };
 		F8ABC7ED27794DAD00013E35 /* RefreshTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ABC7EC27794DAD00013E35 /* RefreshTokenProvider.swift */; };
 		F8F8A6CC2773257000A914AE /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8A6CA2773257000A914AE /* RegisterViewController.swift */; };
 		F8F8A6CD2773257000A914AE /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8F8A6CB2773257000A914AE /* RegisterViewController.xib */; };
@@ -180,6 +183,9 @@
 		F89649EF2776ED440030E322 /* CocktailCategoriesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailCategoriesRouter.swift; sourceTree = "<group>"; };
 		F89649F02776ED440030E322 /* CocktailCategoriesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailCategoriesInteractor.swift; sourceTree = "<group>"; };
 		F8A2A8002775BDEA00B251D9 /* MusicErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicErrorResponse.swift; sourceTree = "<group>"; };
+		F8A2B925277CBC3600C81878 /* MainStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainStepper.swift; sourceTree = "<group>"; };
+		F8A2B926277CBC3600C81878 /* MainSteps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSteps.swift; sourceTree = "<group>"; };
+		F8A2B927277CBC3600C81878 /* MainFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 		F8ABC7EC27794DAD00013E35 /* RefreshTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenProvider.swift; sourceTree = "<group>"; };
 		F8F8A6CA2773257000A914AE /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F8F8A6CB2773257000A914AE /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
@@ -271,15 +277,14 @@
 		F88E218127731D9B00E32D4F /* RXSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
+				F89A8C68277D3B3C00C521B7 /* AppDelegate */,
+				F8A2B924277CBC2A00C81878 /* Coordinate */,
 				F88EBFCD277761E1007FFF9E /* Utils */,
 				F892BFC327745F690067FC7E /* Environment */,
 				F892BFAA277409E70067FC7E /* API */,
 				F892BFC4277477140067FC7E /* Extensions */,
 				F8F8A6D82773314600A914AE /* Models */,
 				F8F8A6C82773254200A914AE /* Screens */,
-				F88E218227731D9B00E32D4F /* AppDelegate.swift */,
-				F88E218427731D9B00E32D4F /* SceneDelegate.swift */,
-				F88E218627731D9B00E32D4F /* HomeViewController.swift */,
 				F88E218827731D9B00E32D4F /* Main.storyboard */,
 				F88E218B27731D9F00E32D4F /* Assets.xcassets */,
 				F88E218D27731D9F00E32D4F /* LaunchScreen.storyboard */,
@@ -454,14 +459,42 @@
 			path = CocktailCategories;
 			sourceTree = "<group>";
 		};
+		F89A8C68277D3B3C00C521B7 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				F88E218227731D9B00E32D4F /* AppDelegate.swift */,
+				F88E218427731D9B00E32D4F /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		F8A2B924277CBC2A00C81878 /* Coordinate */ = {
+			isa = PBXGroup;
+			children = (
+				F8A2B927277CBC3600C81878 /* MainFlow.swift */,
+				F8A2B925277CBC3600C81878 /* MainStepper.swift */,
+				F8A2B926277CBC3600C81878 /* MainSteps.swift */,
+			);
+			path = Coordinate;
+			sourceTree = "<group>";
+		};
+		F8A2B92B277CBDD900C81878 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F88E218627731D9B00E32D4F /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		F8F8A6C82773254200A914AE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				F8A2B92B277CBDD900C81878 /* Home */,
 				F8921559277BF4CF0060C886 /* BaseViewController */,
+				F89649CD2776BD8B0030E322 /* MusicDetail */,
 				F88EBFC027774A60007FFF9E /* Weather */,
 				F88EBFA427772CD2007FFF9E /* Drinks */,
 				F89649E82776ECBB0030E322 /* CocktailCategories */,
-				F89649CD2776BD8B0030E322 /* MusicDetail */,
 				F8F8A6DB277335FC00A914AE /* Music */,
 				F8F8A6CE277326E500A914AE /* ChangeAvatar */,
 				F8F8A6C92773254E00A914AE /* Register */,
@@ -822,6 +855,7 @@
 				F88EE79F2777F89E0070A0C3 /* UIView+Rx.swift in Sources */,
 				F89649F42776ED440030E322 /* CocktailCategoriesInteractor.swift in Sources */,
 				F89649EB2776ECE20030E322 /* CocktailCategoriesViewController.swift in Sources */,
+				F8A2B92A277CBC3600C81878 /* MainFlow.swift in Sources */,
 				F88EBFBC2777430C007FFF9E /* WeatherService.swift in Sources */,
 				F8ABC7ED27794DAD00013E35 /* RefreshTokenProvider.swift in Sources */,
 				F89649DA2776CFDC0030E322 /* MusicListAssembly.swift in Sources */,
@@ -838,12 +872,14 @@
 				F8F8A6CC2773257000A914AE /* RegisterViewController.swift in Sources */,
 				F88EBFBF2777444A007FFF9E /* Weather.swift in Sources */,
 				F89649E32776DA530030E322 /* CocktailErrorResponse.swift in Sources */,
+				F8A2B928277CBC3600C81878 /* MainStepper.swift in Sources */,
 				F89649F32776ED440030E322 /* CocktailCategoriesRouter.swift in Sources */,
 				F892BFC22774394F0067FC7E /* MusicListPresenter.swift in Sources */,
 				F89649D52776CA850030E322 /* MusicListRouter.swift in Sources */,
 				F892BFB927741E290067FC7E /* Environment.swift in Sources */,
 				F88EBFCC27774BD6007FFF9E /* WeatherCityInteractor.swift in Sources */,
 				F89649E72776DE840030E322 /* Drink.swift in Sources */,
+				F8A2B929277CBC3600C81878 /* MainSteps.swift in Sources */,
 				F88EBFB127772D17007FFF9E /* DrinkListRouter.swift in Sources */,
 				F89649D72776CBD10030E322 /* MusicDetailAssembly.swift in Sources */,
 				F88EBFCA27774BD6007FFF9E /* WeatherCityRouter.swift in Sources */,
@@ -1031,9 +1067,10 @@
 				DEVELOPMENT_TEAM = 493KGFEVC3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RXSwiftExample/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Search weather via your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1060,9 +1097,10 @@
 				DEVELOPMENT_TEAM = 493KGFEVC3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RXSwiftExample/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Search weather via your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

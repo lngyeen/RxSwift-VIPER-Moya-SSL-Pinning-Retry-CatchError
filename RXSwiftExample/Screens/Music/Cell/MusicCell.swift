@@ -33,7 +33,7 @@ class MusicCell: UITableViewCell, NibLoadable {
         }
     }
     
-    private func bindingToView(setupSubscribers: Bool = true) {
+    private func bindingToView() {
         guard let musicViewModel = musicViewModel else { return }
         
         nameLabel.text = musicViewModel.name
@@ -41,26 +41,16 @@ class MusicCell: UITableViewCell, NibLoadable {
         thumbnailImageView.kf.setImage(with: URL(string: musicViewModel.artworkUrl100)!)
         isLiked = musicViewModel.lastLikeStatus
         
-        if setupSubscribers {
-            // musicUpdatedTrigger
-            musicViewModel
-                .outputs
-                .musicUpdatedTrigger
-                .subscribe(onNext: { [weak self] _ in
-                    self?.bindingToView(setupSubscribers: false)
-                }).disposed(by: disponseBag)
-            
-            // likeButton trigger
-            likeButton
-                .rx
-                .tap
-                .do(onNext: { [weak self] _ in
-                    self?.isLiked.toggle()
-                })
+        // likeButton trigger
+        likeButton
+            .rx
+            .tap
+            .do(onNext: { [weak self] _ in
+                self?.isLiked.toggle()
+            })
                 .map { self.isLiked }
                 .bind(to: musicViewModel.inputs.likeButtonTrigger)
                 .disposed(by: disponseBag)
-        }
     }
     
     private func updateLikeButton() {

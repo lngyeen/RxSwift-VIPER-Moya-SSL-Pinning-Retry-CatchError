@@ -7,14 +7,8 @@
 
 import UIKit
 
-protocol WeatherCityRouter {
-    var viewController: WeatherCityViewController? { get }
-}
+protocol WeatherCityRouter {}
 
 class WeatherCityRouterImpl: WeatherCityRouter {
-    weak var viewController: WeatherCityViewController?
-
-    init(viewController: WeatherCityViewController) {
-        self.viewController = viewController
-    }
+    init() {}
 }

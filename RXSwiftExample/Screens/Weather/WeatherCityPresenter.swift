@@ -29,6 +29,7 @@ protocol WeatherCityPresenterOutputs {
 }
 
 protocol WeatherCityPresenter {
+    var dependencies: WeatherCityPresenterDependencies { get }
     var inputs: WeatherCityPresenterInputs { get }
     var outputs: WeatherCityPresenterOutputs { get }
 }
@@ -36,6 +37,7 @@ protocol WeatherCityPresenter {
 class WeatherCityPresenterImpl: WeatherCityPresenter, WeatherCityPresenterInputs, WeatherCityPresenterOutputs {
     var inputs: WeatherCityPresenterInputs { return self }
     var outputs: WeatherCityPresenterOutputs { return self }
+    let dependencies: WeatherCityPresenterDependencies
     
     // MARK: - Inputs
     
@@ -48,7 +50,6 @@ class WeatherCityPresenterImpl: WeatherCityPresenter, WeatherCityPresenterInputs
     var isLoading: Observable<Bool> { isLoadingPublishSubject.asObservable() }
     var error: Observable<Error> { errorPublishSubject.asObservable() }
     
-    private let dependencies: WeatherCityPresenterDependencies
     private let disposeBag = DisposeBag()
     private var currentPage: Int = 0
     private let weatherBehaviorRelay: BehaviorRelay<Weather> = BehaviorRelay(value: Weather.dummy)

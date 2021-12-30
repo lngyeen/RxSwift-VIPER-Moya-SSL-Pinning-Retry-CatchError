@@ -22,12 +22,14 @@ protocol DrinkListPresenterInputs {
 }
 
 protocol DrinkListPresenterOutputs {
+    var category: Observable<CocktailCategory> { get }
     var drinks: Observable<[Drink]> { get }
     var isLoading: Observable<Bool> { get }
     var error: Observable<Error> { get }
 }
 
 protocol DrinkListPresenter {
+    var dependencies: DrinkListPresenterDependencies { get }
     var inputs: DrinkListPresenterInputs { get }
     var outputs: DrinkListPresenterOutputs { get }
 }
@@ -35,7 +37,8 @@ protocol DrinkListPresenter {
 class DrinkListPresenterImpl: DrinkListPresenter, DrinkListPresenterInputs, DrinkListPresenterOutputs {
     var inputs: DrinkListPresenterInputs { return self }
     var outputs: DrinkListPresenterOutputs { return self }
-
+    let dependencies: DrinkListPresenterDependencies
+    
     // MARK: - Inputs
     
     let showDrinkDetailTrigger = PublishSubject<Drink>()
@@ -44,6 +47,8 @@ class DrinkListPresenterImpl: DrinkListPresenter, DrinkListPresenterInputs, Drin
     
     // MARK: - Outputs
 
+    var category: Observable<CocktailCategory> { categoryBehaviorRelay.asObservable() }
+    
     var drinks: Observable<[Drink]> { drinksBehaviorRelay.asObservable() }
     
     var isLoading: Observable<Bool> { isLoadingPublishSubject.asObservable() }
@@ -52,9 +57,8 @@ class DrinkListPresenterImpl: DrinkListPresenter, DrinkListPresenterInputs, Drin
     
     // MARK: - Private properties
     
-    private let dependencies: DrinkListPresenterDependencies
     private let disposeBag = DisposeBag()
-    private var category: CocktailCategory
+    private let categoryBehaviorRelay: BehaviorRelay<CocktailCategory>
     private let drinksBehaviorRelay: BehaviorRelay<[Drink]> = BehaviorRelay(value: [])
     private let isLoadingPublishSubject = PublishSubject<Bool>()
     private let errorPublishSubject = PublishSubject<Error>()
@@ -62,7 +66,7 @@ class DrinkListPresenterImpl: DrinkListPresenter, DrinkListPresenterInputs, Drin
     init(category: CocktailCategory,
          dependencies: DrinkListPresenterDependencies)
     {
-        self.category = category
+        self.categoryBehaviorRelay = BehaviorRelay(value: category)
         self.dependencies = dependencies
         bindingInputs()
     }
@@ -74,8 +78,8 @@ class DrinkListPresenterImpl: DrinkListPresenter, DrinkListPresenterInputs, Drin
         inputs
             .refreshTrigger
             .startLoading(isLoadingPublishSubject)
-            .flatMap { [dependencies, category] in
-                dependencies.interactor.fetchDrinksFor(category: category.strCategory).materialize()
+            .flatMap { [dependencies, categoryBehaviorRelay] in
+                dependencies.interactor.fetchDrinksFor(category: categoryBehaviorRelay.value.strCategory).materialize()
             }
             .stopLoading(isLoadingPublishSubject)
             .subscribe(onNext: { [weak self] materializedEvent in
@@ -91,9 +95,8 @@ class DrinkListPresenterImpl: DrinkListPresenter, DrinkListPresenterInputs, Drin
         // showDrinkDetailTrigger
         inputs
             .showDrinkDetailTrigger
-            .subscribe { [dependencies] (drink: Drink) in
-                dependencies.router.showDrinkDetail(drink)
-            }.disposed(by: disposeBag)
+            .bind(to: dependencies.router.showDrinkDetailTrigger)
+            .disposed(by: disposeBag)
     }
     
     private func processDrinks(_ newDrinks: [Drink], isRefresing: Bool = false) {

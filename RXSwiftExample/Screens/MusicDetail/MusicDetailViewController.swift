@@ -5,15 +5,21 @@
 //  Created by Nguyen Truong Luu on 12/25/21.
 //
 
+import RxFlow
+import RxRelay
 import RxSwift
 import UIKit
 
-class MusicDetailViewController: BaseViewController {
+class MusicDetailViewController: BaseViewController, Stepper {
     // MARK: - Outlets
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+
+    // MARK: - Stepper conformances
+
+    let steps = PublishRelay<Step>()
 
     // MARK: - Properties
 

@@ -23,6 +23,7 @@ protocol CocktailCategoriesPresenterOutputs {
 }
 
 protocol CocktailCategoriesPresenter {
+    var dependencies: CocktailCategoriesPresenterDependencies { get }
     var inputs: CocktailCategoriesPresenterInputs { get }
     var outputs: CocktailCategoriesPresenterOutputs { get }
 }
@@ -38,6 +39,7 @@ class CocktailCategoriesPresenterImpl: CocktailCategoriesPresenter,
 {
     var inputs: CocktailCategoriesPresenterInputs { return self }
     var outputs: CocktailCategoriesPresenterOutputs { return self }
+    let dependencies: CocktailCategoriesPresenterDependencies
     
     // MARK: - Inputs
     
@@ -52,7 +54,6 @@ class CocktailCategoriesPresenterImpl: CocktailCategoriesPresenter,
 
     // MARK: - Private properties
     
-    private let dependencies: CocktailCategoriesPresenterDependencies
     private let disposeBag = DisposeBag()
     private var currentPage: Int = 0
     private let categoriesBehaviorRelay: BehaviorRelay<[CocktailCategory]> = BehaviorRelay(value: [])
@@ -88,9 +89,8 @@ class CocktailCategoriesPresenterImpl: CocktailCategoriesPresenter,
         // showMusicDetailTrigger
         inputs
             .showCategoryDetailTrigger
-            .subscribe { [dependencies] (category: CocktailCategory) in
-                dependencies.router.showCocktailCategoryDetail(category)
-            }.disposed(by: disposeBag)
+            .bind(to: dependencies.router.showCocktailCategoryDetailTrigger)
+            .disposed(by: disposeBag)
     }
     
     private func processCocktailCategories(_ newCategories: [CocktailCategory], isRefresing: Bool = false) {

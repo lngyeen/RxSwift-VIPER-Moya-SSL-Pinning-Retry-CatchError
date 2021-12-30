@@ -12,7 +12,7 @@ import RxSwiftExt
 
 protocol MusicService {
     func fetchMusics(page: Int) -> Single<[Music]>
-    func likeMusic(_ music: Music) -> Single<Music>
+    func likeMusic(_ music: Music, like: Bool) -> Single<Music>
 }
 
 class MusicServiceImpl: BaseService, MusicService {
@@ -38,11 +38,11 @@ class MusicServiceImpl: BaseService, MusicService {
             .map { $0.feed.results }
     }
     
-    func likeMusic(_ music: Music) -> Single<Music> {
+    func likeMusic(_ music: Music, like: Bool) -> Single<Music> {
         return Single.create { single in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 var music = music
-                music.isLiked.toggle()
+                music.isLiked = like
                 single(.success(music))
             })
             return Disposables.create()

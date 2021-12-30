@@ -10,7 +10,7 @@ import RxSwift
 
 protocol MusicListInteractor {
     func fetchMusicsAtPage(_ page: Int) -> Observable<[Music]>
-    func likeMusic(_ music: Music) -> Observable<Music>
+    func likeMusic(_ music: Music, like: Bool) -> Observable<Music>
 }
 
 class MusicListInteractorImpl: MusicListInteractor {
@@ -25,9 +25,9 @@ class MusicListInteractorImpl: MusicListInteractor {
             .retry(.exponentialDelayed(maxCount: 3, initial: 2.0, multiplier: 1.0),
                    scheduler: MainScheduler.instance)
     }
-    
-    func likeMusic(_ music: Music) -> Observable<Music> {
-        return service.likeMusic(music)
+
+    func likeMusic(_ music: Music, like: Bool) -> Observable<Music> {
+        return service.likeMusic(music, like: like)
             .asObservable()
             .retry(.exponentialDelayed(maxCount: 3, initial: 2.0, multiplier: 1.0),
                    scheduler: MainScheduler.instance)

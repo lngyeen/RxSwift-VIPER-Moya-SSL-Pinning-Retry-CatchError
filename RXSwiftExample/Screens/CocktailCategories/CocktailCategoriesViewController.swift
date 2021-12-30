@@ -30,6 +30,8 @@ class CocktailCategoriesViewController: BaseViewController {
     }
     
     override func setupUI() {
+        title = "Cocktail Categories"
+        
         tableView.register(cellType: UITableViewCell.self)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         tableView.refreshControl = refreshControl
