@@ -19,6 +19,7 @@
 		F88E219A27731D9F00E32D4F /* RXSwiftExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E219927731D9F00E32D4F /* RXSwiftExampleTests.swift */; };
 		F88E21A427731D9F00E32D4F /* RXSwiftExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E21A327731D9F00E32D4F /* RXSwiftExampleUITests.swift */; };
 		F88E21A627731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E21A527731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift */; };
+		F88E415F2783EB3E0003693F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E415E2783EB3E0003693F /* SecureStore.swift */; };
 		F88EBFAC27772D17007FFF9E /* DrinkListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88EBFA627772D17007FFF9E /* DrinkListPresenter.swift */; };
 		F88EBFAD27772D17007FFF9E /* DrinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88EBFA727772D17007FFF9E /* DrinkListViewController.swift */; };
 		F88EBFAE27772D17007FFF9E /* DrinkListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88EBFA827772D17007FFF9E /* DrinkListAssembly.swift */; };
@@ -130,6 +131,7 @@
 		F88E219F27731D9F00E32D4F /* RXSwiftExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RXSwiftExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88E21A327731D9F00E32D4F /* RXSwiftExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXSwiftExampleUITests.swift; sourceTree = "<group>"; };
 		F88E21A527731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXSwiftExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F88E415E2783EB3E0003693F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		F88EBFA627772D17007FFF9E /* DrinkListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkListPresenter.swift; sourceTree = "<group>"; };
 		F88EBFA727772D17007FFF9E /* DrinkListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkListViewController.swift; sourceTree = "<group>"; };
 		F88EBFA827772D17007FFF9E /* DrinkListAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkListAssembly.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		F88E218127731D9B00E32D4F /* RXSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
+				F88E415D2783EB2A0003693F /* AppStorage */,
 				F89A8C68277D3B3C00C521B7 /* AppDelegate */,
 				F8A2B924277CBC2A00C81878 /* Coordinate */,
 				F88EBFCD277761E1007FFF9E /* Utils */,
@@ -308,6 +311,14 @@
 				F88E21A527731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift */,
 			);
 			path = RXSwiftExampleUITests;
+			sourceTree = "<group>";
+		};
+		F88E415D2783EB2A0003693F /* AppStorage */ = {
+			isa = PBXGroup;
+			children = (
+				F88E415E2783EB3E0003693F /* SecureStore.swift */,
+			);
+			path = AppStorage;
 			sourceTree = "<group>";
 		};
 		F88EBFA427772CD2007FFF9E /* Drinks */ = {
@@ -844,6 +855,7 @@
 				F88EBFBD2777430C007FFF9E /* WeatherErrorResponse.swift in Sources */,
 				F89649F12776ED440030E322 /* CocktailCategoriesAssembly.swift in Sources */,
 				F892BFB32774162F0067FC7E /* MusicService.swift in Sources */,
+				F88E415F2783EB3E0003693F /* SecureStore.swift in Sources */,
 				F88EE7A3277807F70070A0C3 /* MKMapView+Rx.swift in Sources */,
 				F89649DF2776DA380030E322 /* CocktailEndpoint.swift in Sources */,
 				F892BFAE27740DC20067FC7E /* ApiPresentableError.swift in Sources */,
@@ -1064,7 +1076,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 493KGFEVC3;
+				DEVELOPMENT_TEAM = 38X6ES8UH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RXSwiftExample/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
@@ -1078,7 +1090,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxswift.example.RXSwiftExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sicpa.test.IPSCustom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1094,7 +1106,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 493KGFEVC3;
+				DEVELOPMENT_TEAM = 38X6ES8UH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RXSwiftExample/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
@@ -1108,7 +1120,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxswift.example.RXSwiftExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sicpa.test.IPSCustom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -1,0 +1,375 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  workspace_name = "RXSwiftExample.xcworkspace"
+  project_name = "RXSwiftExample.xcodeproj"
+  target_name = "RXSwiftExample"
+  app_name = "RXSwiftExample"
+  scheme_dev = "RXSwiftExample-dev"
+  scheme_pre_prod = "RXSwiftExample-pre-prod"
+  scheme_prod = "RXSwiftExample-prod"
+  app_bundle_id = "com.sicpa.test.IPSCustom"
+
+  keychain_name = "jenkins"
+  keychain_password = "jenkins"
+
+  build_folder = "./build"
+  test_folder = "#{build_folder}/test"
+
+  desc "Run Unit tests and UI tests"
+  lane :runTests do
+    scan(
+      scheme: scheme_dev,
+      device: "iPhone 11 Pro (14.4)",
+      derived_data_path: test_folder,
+      code_coverage: true,
+      clean: true,
+      skip_build: true
+    )
+    slather(
+      scheme: scheme_dev,
+      proj: project_name,
+      workspace: workspace_name,
+      build_directory: test_folder,
+      output_directory: slather_output_folder,
+      html: true,
+      ignore: ["Pods/*", "ThirdParty/*", "Frameworks/*"]
+    )
+  end
+
+  #
+  # Local lanes
+  #
+
+  desc "Build ad-hoc app in dev environment in local machine"
+  lane :build_local_dev do
+    build_local(
+      scheme: scheme_dev,
+      export_method: "development"
+    )
+  end
+
+  desc "Build ad-hoc app in pre_prod environment in local machine"
+  lane :build_local_pre_prod_ad_hoc do
+    build_local(
+      scheme: scheme_pre_prod,
+      export_method: "ad-hoc"
+    )
+  end
+
+  desc "Build enterprise(in-house) app in pre-prod environment in local machine"
+  lane :build_local_pre_prod_enterprise do
+    build_local(
+      scheme: scheme_pre_prod,
+      export_method: "enterprise"
+    )
+  end
+
+  desc "Build enterprise(in-house) app in prod environment in local machine"
+  lane :build_local_prod_enterprise do
+    build_local(
+      scheme: scheme_prod,
+      export_method: "enterprise"
+    )
+  end
+
+  desc "Build app with :scheme and :export_method"
+  private_lane :build_local do |options|
+    export_method = options[:export_method]
+    ipa_file_name = "#{options[:scheme]}-#{options[:export_method]}.ipa"
+    provisioning_type = "Development"
+    if export_method == "ad-hoc"
+      provisioning_type = "Ad-Hoc"
+    elsif export_method == "enterprise"
+      provisioning_type = "Enterprise"
+    end
+
+    create_build_folder
+    test
+    gym(
+      scheme: "#{options[:scheme]}",
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      output_name: ipa_file_name,
+      silent: false,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "#{options[:export_method]}",
+      export_options: {
+        provisioningProfiles: {
+          "com.sicpa.test.IPSCustom": "com.sicpa.test.IPSCustom #{provisioning_type}"
+        }
+      }
+    )
+  end
+
+  #
+  # CI Server lanes
+  #
+
+  desc "Build dev"
+  lane :build_develop do
+    ipa_file_name = "#{app_name}-dev.ipa"
+    create_build_keychain
+    import_all_certificates_and_provisioning_profiles
+    create_build_folder
+    test
+    gym(
+      scheme: scheme_dev,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      output_name: ipa_file_name,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Development"
+        }
+      }
+    )
+    delete_keychain(
+      name: keychain_name
+    )
+    upload_deploy_gate
+  end
+
+  desc "Build pre-prod Ad-Hoc"
+  lane :build_pre_prod_ad_hoc do
+    ipa_file_name = "#{app_name}-pre-prod.ipa"
+    create_build_keychain
+    import_all_certificates_and_provisioning_profiles
+    create_build_folder
+    test
+    gym(
+      scheme: scheme_pre_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      output_name: ipa_file_name,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "ad-hoc",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Ad-Hoc"
+        }
+      }
+    )
+    delete_keychain(
+      name: keychain_name
+    )
+    upload_deploy_gate
+  end
+
+  desc "Build pre-prod Enterprise"
+  lane :build_pre_prod_enterprise do
+    ipa_file_name = "#{app_name}-pre-prod.ipa"
+    create_build_keychain
+    import_all_certificates_and_provisioning_profiles
+    create_build_folder
+    test
+    gym(
+      scheme: scheme_pre_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      output_name: ipa_file_name,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "enterprise",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Enterprise"
+        }
+      }
+    )
+    delete_keychain(
+      name: keychain_name
+    )
+    upload_deploy_gate
+  end
+
+  desc "Build prod Ad-Hoc"
+  lane :build_prod_ad_hoc do
+    ipa_file_name = "#{app_name}-prod.ipa"
+    create_build_keychain
+    import_all_certificates_and_provisioning_profiles
+    create_build_folder
+    test
+    gym(
+      scheme: scheme_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      output_name: ipa_file_name,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "ad-hoc",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Ad-Hoc"
+        }
+      }
+    )
+    delete_keychain(
+      name: keychain_name
+    )
+    upload_deploy_gate
+  end
+
+  desc "Build Prod Enterprise"
+  lane :build_prod_enterprise do
+    ipa_file_name = "#{app_name}-prod.ipa"
+    create_build_keychain
+    import_all_certificates_and_provisioning_profiles
+    create_build_folder
+    test
+    gym(
+      scheme: scheme_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      output_name: ipa_file_name,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "enterprise",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Enterprise"
+        }
+      }
+    )
+    delete_keychain(
+      name: keychain_name
+    )
+    upload_deploy_gate
+  end
+
+  #
+  # Private lanes
+  #
+
+  desc "Create build keychain"
+  private_lane :create_build_keychain do
+    delete_keychain(name: keychain_name) if File.exists? File.expand_path("~/Library/Keychains/#{keychain_name}-db")
+    create_keychain(
+      name: keychain_name,
+      password: keychain_password,
+      default_keychain: true,
+      unlock: true,
+      timeout: 900,
+      lock_when_sleeps: true
+    )
+  end
+
+  desc "Import certificates"
+  private_lane :import_all_certificates_and_provisioning_profiles do
+    #register_devices(devices_file: "./fastlane/devices.txt")
+
+    # match(
+    #   type: "adhoc",
+    #   app_identifier: [
+    #     "my.app.identifier"
+    #   ]
+    # )
+    # match(
+    #   type: "development",
+    #   app_identifier: [
+    #     "my.app.identifier"
+    #   ]
+    # )
+    # match(
+    #   type: "appstore",
+    #   app_identifier: [
+    #     "my.app.identifier"
+    #   ]
+    # )
+
+
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/apple.cer"
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dev.cer"
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dev.p12",
+      certificate_password: ENV["PWD_P12"]
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dis.cer"
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dis.p12",
+      certificate_password: ENV["PWD_P12"]
+    )
+    install_provisioning_profile(path: "./scripts/profiles/Development.mobileprovision")
+    install_provisioning_profile(path: "./scripts/profiles/AdHoc-Distribution.mobileprovision")
+    install_provisioning_profile(path: "./scripts/profiles/Enterprise-Distribution.mobileprovision")
+  end
+
+  desc "Increment build number and commit changes to github"
+  private_lane :incrementBuildNumberAndCommit do
+    ensure_git_status_clean
+    build_number = increment_build_number
+    commit_version_bump(message: "[skip ci] Version Bump to #{build_number}")
+    push_to_git_remote()
+  end
+
+
+  desc "Make build folder"
+  private_lane :create_build_folder do
+    sh "mkdir -p #{build_folder}"
+  end
+
+  desc "Upload DeployGate"
+  lane :upload_deploy_gate do |options|
+    deploygate(
+        api_token: "029b03c2-931f-42af-94dc-4714e96e8371",      #ENV["DEPLOYGATE_API_KEY"],
+        user: "lngyeen",                                        #ENV["DEPLOYGATE_USERNAME"],
+        # ipa: "#{options[:ipa]}",
+        message: "Build " + get_version_number(target: target_name) + "_" + get_build_number
+    )
+  end
+
+  desc "Upload AppStore"
+  lane :deliverToAppStore do
+    deliver(
+      submit_for_review: false,
+      automatic_release: false,
+      phased_release: true,
+      force: true, # Skip HTMl report verification
+      skip_metadata: false,
+      skip_screenshots: true,
+      skip_binary_upload: false
+    )
+  end
+end

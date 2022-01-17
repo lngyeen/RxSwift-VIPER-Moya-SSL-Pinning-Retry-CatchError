@@ -17,6 +17,7 @@ target 'RXSwiftExample' do
   pod 'Moya'
   pod 'Moya/RxSwift'
   pod 'MBProgressHUD', '~> 1.2.0'
+  pod 'KeychainAccess'
   
   target 'RXSwiftExampleTests' do
     inherit! :search_paths

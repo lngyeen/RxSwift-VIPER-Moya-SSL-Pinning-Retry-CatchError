@@ -3,6 +3,7 @@ PODS:
     - RxCocoa (< 7.0, >= 5.0)
     - RxSwift (< 7.0, >= 5.0)
   - Alamofire (5.4.4)
+  - KeychainAccess (4.2.2)
   - Kingfisher (4.10.1)
   - MBProgressHUD (1.2.0)
   - Moya (14.0.0):
@@ -37,6 +38,7 @@ PODS:
 
 DEPENDENCIES:
   - Action
+  - KeychainAccess
   - Kingfisher
   - Kingfisher (= 4.10.1)
   - MBProgressHUD (~> 1.2.0)
@@ -52,6 +54,7 @@ SPEC REPOS:
   trunk:
     - Action
     - Alamofire
+    - KeychainAccess
     - Kingfisher
     - MBProgressHUD
     - Moya
@@ -65,6 +68,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Action: 5dc2194f7a0b77857c82a677b0da655f197c005f
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
@@ -75,6 +79,6 @@ SPEC CHECKSUMS:
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   RxSwiftExt: 4ca80336f43c28f11a2825cdd2fc61dd6c044697
 
-PODFILE CHECKSUM: 3720aafc0f677149915b7e1d2d75686dc4f379e2
+PODFILE CHECKSUM: 0808a35cb0124c462ec5ae69dc4d33951f3e9b37
 
 COCOAPODS: 1.11.2
