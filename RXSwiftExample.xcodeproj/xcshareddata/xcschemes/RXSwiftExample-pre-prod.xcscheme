@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Production"
+      buildConfiguration = "Pre-production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -51,7 +51,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Production"
+      buildConfiguration = "Pre-production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       enableThreadSanitizer = "YES"
@@ -73,7 +73,7 @@
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Production"
+      buildConfiguration = "Pre-production"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -90,10 +90,10 @@
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Production">
+      buildConfiguration = "Pre-production">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Production"
+      buildConfiguration = "Pre-production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
