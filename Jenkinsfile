@@ -1,5 +1,4 @@
 #!groovy
-
 def lastCommitInfo = ""
 def skippingText = ""
 def commitContainsSkip = 0
@@ -9,13 +8,15 @@ def shouldBuild = false
 def pollSpec = ""
 
 if(env.BRANCH_NAME == "master") {
-    pollSpec = "*/5 * * * *"
+    pollSpec = "0 * * * *"
 } else if(env.BRANCH_NAME == "develop") {
     pollSpec = "* * * * 1-5"
+} else if(env.BRANCH_NAME.contains("release")) {
+    pollSpec = "0 15 * * *"
 }
 
 pipeline {
-    agent any
+    agent {label 'macbook'}
 
     options {
         ansiColor("xterm")
@@ -51,8 +52,13 @@ pipeline {
                 }
               }
               steps {
-                // checkout scm
-                sh 'pod install --repo-update'
+                checkout scm
+                // sh "gem install bundler --user-install"
+                // sh "gem install nokogiri 1.12.0 --user-install"
+                // sh "gem install cocoapods 1.11.2 --user-install"
+                // sh 'gem install fastlane 2.200.0 --user-install'
+                // sh "gem install slather 2.7.2 --user-install"
+                sh "pod install --repo-update"
               }
         }
 
@@ -62,25 +68,25 @@ pipeline {
         //     }
         // }
 
-        stage('Run Unit and UI Tests') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
-            steps {
-                script {
-                    try {
-                        sh "fastlane runTests"
-                    } catch(exc) {
-                        currentBuild.result = "UNSTABLE"
-                        error('There are failed tests.')
-                    }
-                }
-            }
-        }
+        // stage('Run Tests') {
+        //     when {
+        //         expression {
+        //             return env.shouldBuild != "false"
+        //         }
+        //     }
+        //     steps {
+        //         script {
+        //             try {
+        //                 sh "fastlane runTests"
+        //             } catch(exc) {
+        //                 currentBuild.result = "UNSTABLE"
+        //                 error('There are failed tests.')
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Build develop and submit to Deploygate') {
+        stage('Build develop') {
             when {
                 expression {
                     return env.shouldBuild != "false" && env.BRANCH_NAME == 'develop'
@@ -89,11 +95,10 @@ pipeline {
             steps {
                 // sh "fastlane incrementBuildNumberAndCommit"
                 sh "fastlane build_develop"
-                sh "fastlane upload_deploy_gate"
             }
         }
 
-        stage('Build pre-prod and submit to Deploygate') {
+        stage('Build pre-prod') {
             when {
                 expression {
                     return env.shouldBuild != "false" && env.BRANCH_NAME == "master"
@@ -102,12 +107,10 @@ pipeline {
             steps {
                 // sh "fastlane incrementBuildNumberAndCommit"
                 sh "fastlane build_pre_prod_ad_hoc"
-                sh "fastlane upload_deploy_gate"
             }
         }
 
-
-        stage('Build pre-prod and submit to Deploygate') {
+        stage('Build prod') {
             when {
                 expression {
                     return env.shouldBuild != "false" && env.BRANCH_NAME.contains("release")
@@ -116,28 +119,27 @@ pipeline {
             steps {
                 // sh "fastlane incrementBuildNumberAndCommit"
                 sh "fastlane build_prod_ad_hoc"
-                sh "fastlane upload_deploy_gate"
             }
         }
 
-        stage('Inform Slack for success') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
-            steps {
-                //slackSend color: "good", message: "*${env.JOB_NAME}* *${env.BRANCH_NAME}* job is completed successfully"
-            }
-        }
+        // stage('Inform Slack for success') {
+        //     when {
+        //         expression {
+        //             return env.shouldBuild != "false"
+        //         }
+        //     }
+        //     steps {
+        //         ////slackSend color: "good", message: "*${env.JOB_NAME}* *${env.BRANCH_NAME}* job is completed successfully"
+        //     }
+        // }
     }
 
-    post {
-        failure {
-            //slackSend color: "danger", message: "*${env.JOB_NAME}* *${env.BRANCH_NAME}* job is failed"
-        }
-        unstable {
-            //slackSend color: "danger", message: "*${env.JOB_NAME}* *${env.BRANCH_NAME}* job is unstable. Unstable means test failure, code violation etc."
-        }
-    }
+    // post {
+    //     failure {
+    //         //slackSend color: "danger", message: "*${env.JOB_NAME}* *${env.BRANCH_NAME}* job is failed"
+    //     }
+    //     unstable {
+    //         //slackSend color: "danger", message: "*${env.JOB_NAME}* *${env.BRANCH_NAME}* job is unstable. Unstable means test failure, code violation etc."
+    //     }
+    // }
 }
