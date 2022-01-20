@@ -12,7 +12,7 @@ class MusicListAssembly: Assembly {
 
     func build() -> MusicListViewController {
         let controller = MusicListViewController()
-        let router = MusicListRouterImpl(viewController: controller)
+        let router = MusicListRouterImpl()
         let interactor = MusicListInteractorImpl(service: MusicServiceImpl())
         let presenterDependencies = MusicListPresenterDependencies(interactor: interactor,
                                                                    router: router)

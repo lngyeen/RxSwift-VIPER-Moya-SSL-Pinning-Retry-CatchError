@@ -7,10 +7,11 @@
 
 import Reusable
 import RxCocoa
+import RxFlow
 import RxSwift
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, Stepper {
     // MARK: Outlets
 
     @IBOutlet var avatarImageView: UIImageView!
@@ -18,6 +19,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var registerButton: UIButton!
+    
+    // MARK: - Stepper conformances
+    let steps = PublishRelay<Step>()
     
     var avatartIndex = 0
     private let disposeBag = DisposeBag()
@@ -65,17 +69,9 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func changeAvatar() {
-        let changeAvatarVC = ChangeAvatarViewController()
-        navigationController?.pushViewController(changeAvatarVC, animated: true)
-        
-        // subscribe
-        changeAvatarVC.selectedPhotos
-            .subscribe(onNext: { img in
-                self.image.accept(img)
-            }, onDisposed: {
-                print("Complete changed Avatar")
-            })
-            .disposed(by: disposeBag)
+        steps.accept(MainSteps.changAvatarScreenIsRequired(onSelect: { image in
+            self.image.accept(image)
+        }))
     }
 }
 

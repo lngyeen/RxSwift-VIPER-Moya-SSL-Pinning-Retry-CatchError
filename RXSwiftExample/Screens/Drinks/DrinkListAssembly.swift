@@ -15,7 +15,7 @@ class DrinkListAssembly: Assembly {
 
     func build() -> DrinkListViewController {
         let controller = DrinkListViewController()
-        let router = DrinkListRouter(viewController: controller)
+        let router = DrinkListRouter()
         let intoractor = DrinkListInteractor(service: CocktailServiceImpl())
         let presenter = DrinkListPresenterImpl(category: category,
                                                dependencies: DrinkListPresenterDependencies(interactor: intoractor, router: router))

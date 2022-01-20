@@ -5,22 +5,28 @@
 //  Created by Nguyen Truong Luu on 12/25/21.
 //
 
+import RxFlow
+import RxRelay
+import RxSwift
 import UIKit
 
-protocol MusicListRouter {
-    var viewController: MusicListViewController? { get }
-    func showMusicDetail(_ music: MusicViewModel)
+protocol MusicListRouter: Stepper {
+    var showMusicDetailTrigger: PublishSubject<MusicViewModel> { get }
 }
 
 class MusicListRouterImpl: MusicListRouter {
-    weak var viewController: MusicListViewController?
-
-    init(viewController: MusicListViewController) {
-        self.viewController = viewController
-    }
-
-    func showMusicDetail(_ music: MusicViewModel) {
-        let assembly = MusicDetailAssembly(music: music)
-        viewController?.navigationController?.pushViewController(assembly.build(), animated: true)
+    // MARK: - Stepper conformances
+    let steps = PublishRelay<Step>()
+    
+    // MARK: - Router trigger
+    let showMusicDetailTrigger = PublishSubject<MusicViewModel>()
+    
+    private let disposeBag = DisposeBag()
+    
+    init() {
+        showMusicDetailTrigger
+            .map { MainSteps.musicDetailIsRequired(music: $0) }
+            .bind(to: steps)
+            .disposed(by: disposeBag)
     }
 }

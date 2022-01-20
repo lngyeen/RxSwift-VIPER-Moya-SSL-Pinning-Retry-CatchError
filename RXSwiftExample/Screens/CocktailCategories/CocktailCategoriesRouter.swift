@@ -6,21 +6,27 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
+import RxFlow
 
-protocol CocktailCategoriesRouterProtocol {
-    var viewController: CocktailCategoriesViewController? { get }
-    func showCocktailCategoryDetail(_ category: CocktailCategory)
+protocol CocktailCategoriesRouterProtocol: Stepper {
+    var showCocktailCategoryDetailTrigger: PublishSubject<CocktailCategory> { get }
 }
 
 class CocktailCategoriesRouter: CocktailCategoriesRouterProtocol {
-    weak var viewController: CocktailCategoriesViewController?
-
-    init(viewController: CocktailCategoriesViewController) {
-        self.viewController = viewController
-    }
-
-    func showCocktailCategoryDetail(_ category: CocktailCategory) {
-        let assembly = DrinkListAssembly(category: category)
-        viewController?.navigationController?.pushViewController(assembly.build(), animated: true)
+    // MARK: - Stepper conformances
+    let steps = PublishRelay<Step>()
+    
+    // MARK: - Router trigger
+    let showCocktailCategoryDetailTrigger = PublishSubject<CocktailCategory>()
+    
+    private let disposeBag = DisposeBag()
+    
+    init() {
+        showCocktailCategoryDetailTrigger
+            .map { MainSteps.cocktailCategorieDetailIsRequired(category: $0) }
+            .bind(to: steps)
+            .disposed(by: disposeBag)
     }
 }

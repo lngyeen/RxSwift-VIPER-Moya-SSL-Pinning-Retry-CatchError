@@ -6,21 +6,16 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol DrinkListRouterProtocol {
-    var viewController: DrinkListViewController? { get }
-    func showDrinkDetail(_ drink: Drink)
+    var showDrinkDetailTrigger: PublishSubject<Drink> { get }
 }
 
 class DrinkListRouter: DrinkListRouterProtocol {
-    weak var viewController: DrinkListViewController?
-
-    init(viewController: DrinkListViewController) {
-        self.viewController = viewController
-    }
-
-    func showDrinkDetail(_ drink: Drink) {
-        // let assembly = DrinkDetailAssembly(drink: drink)
-        // viewController?.navigationController?.pushViewController(assembly.build(), animated: true)
-    }
+    let showDrinkDetailTrigger = PublishSubject<Drink>()
+    
+    private let disposeBag = DisposeBag()
+    
+    init() { }
 }

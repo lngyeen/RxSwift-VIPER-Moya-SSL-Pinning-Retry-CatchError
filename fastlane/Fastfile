@@ -1,0 +1,392 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  workspace_name = "RXSwiftExample.xcworkspace"
+  project_name = "RXSwiftExample.xcodeproj"
+  target_name = "RXSwiftExample"
+  app_name = "RXSwiftExample"
+  scheme_dev = "RXSwiftExample-dev"
+  scheme_pre_prod = "RXSwiftExample-pre-prod"
+  scheme_prod = "RXSwiftExample-prod"
+  app_bundle_id = "com.sicpa.test.IPSCustom"
+
+  keychain_name = "jenkins"
+  keychain_password = "jenkins"
+
+  build_folder = "./output"
+  test_folder = "#{build_folder}/test"
+  slather_output_folder = "#{test_folder}/slather_output"
+
+  #
+  # Tests
+  #
+
+  desc "Run Unit tests and UI tests"
+  lane :runTests do
+    scan(
+      scheme: scheme_dev,
+      device: "iPhone 11 Pro (14.4)",
+      # derived_data_path: test_folder,
+      code_coverage: true,
+      clean: true,
+      skip_build: true
+    )
+    # slather(
+    #   scheme: scheme_dev,
+    #   proj: project_name,
+    #   workspace: workspace_name,
+    #   build_directory: test_folder,
+    #   output_directory: slather_output_folder,
+    #   html: true,
+    #   ignore: ["Pods/*", "ThirdParty/*", "Frameworks/*"]
+    # )
+  end
+
+  #
+  # Local lanes
+  #
+
+  desc "Build ad-hoc app in dev environment in local machine"
+  lane :build_local_dev do
+    build_local(
+      scheme: scheme_dev,
+      export_method: "development"
+    )
+  end
+
+  desc "Build ad-hoc app in pre_prod environment in local machine"
+  lane :build_local_pre_prod_ad_hoc do
+    build_local(
+      scheme: scheme_pre_prod,
+      export_method: "ad-hoc"
+    )
+  end
+
+  desc "Build enterprise(in-house) app in pre-prod environment in local machine"
+  lane :build_local_pre_prod_enterprise do
+    build_local(
+      scheme: scheme_pre_prod,
+      export_method: "enterprise"
+    )
+  end
+
+  desc "Build enterprise(in-house) app in prod environment in local machine"
+  lane :build_local_prod_enterprise do
+    build_local(
+      scheme: scheme_prod,
+      export_method: "enterprise"
+    )
+  end
+
+  desc "Build app with :scheme and :export_method"
+  private_lane :build_local do |options|
+    export_method = options[:export_method]
+    provisioning_type = "Development"
+    if export_method == "ad-hoc"
+      provisioning_type = "Ad-Hoc"
+    elsif export_method == "enterprise"
+      provisioning_type = "Enterprise"
+    end
+    gym(
+      scheme: "#{options[:scheme]}",
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      silent: false,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "#{options[:export_method]}",
+      export_options: {
+        provisioningProfiles: {
+          "com.sicpa.test.IPSCustom": "com.sicpa.test.IPSCustom #{provisioning_type}"
+        }
+      }
+    )
+  end
+
+  #
+  # CI Server lanes
+  #
+
+  desc "Build dev and upload deploygate"
+  lane :build_develop do
+    prepare_keychain_and_certificate
+    setup_jenkins_keychain
+    gym(
+      scheme: scheme_dev,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "enterprise",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Enterprise"
+        }
+      }
+    )
+    upload_DeployDate
+    ensure
+    delete_keychain(
+      name: keychain_name
+    )
+  end
+
+  desc "Build pre-prod Ad-Hoc"
+  lane :build_pre_prod_ad_hoc do
+    prepare_keychain_and_certificate
+    setup_jenkins_keychain
+    gym(
+      scheme: scheme_pre_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "ad-hoc",
+      export_options: {
+        signingStyle: "auto",
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Ad-Hoc"
+        }
+      }
+    )
+    upload_DeployDate
+    # upload_DeployDate(
+    #   ipa: "#{build_folder}/#{ipa_file_name}"
+    # )
+    ensure
+    delete_keychain(
+      name: keychain_name
+    )
+  end
+
+  desc "Build pre-prod Enterprise"
+  lane :build_pre_prod_enterprise do
+    prepare_keychain_and_certificate
+    setup_jenkins_keychain
+    gym(
+      scheme: scheme_pre_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "enterprise",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Enterprise"
+        }
+      }
+    )
+    upload_DeployDate
+    # upload_DeployDate(
+    #   ipa: "#{build_folder}/#{ipa_file_name}"
+    # )
+    ensure
+    delete_keychain(
+      name: keychain_name
+    )
+  end
+
+  desc "Build prod Ad-Hoc"
+  lane :build_prod_ad_hoc do
+    prepare_keychain_and_certificate
+    setup_jenkins_keychain
+    gym(
+      scheme: scheme_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "ad-hoc",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Ad-Hoc"
+        }
+      }
+    )
+    upload_DeployDate
+    # upload_DeployDate(
+    #   ipa: "#{build_folder}/#{ipa_file_name}"
+    # )
+    ensure
+    delete_keychain(
+      name: keychain_name
+    )
+  end
+
+  desc "Build Prod Enterprise"
+  lane :build_prod_enterprise do
+    prepare_keychain_and_certificate
+    setup_jenkins_keychain
+    gym(
+      scheme: scheme_prod,
+      workspace: workspace_name,
+      # output_directory: build_folder,
+      silent: true,
+      clean: true,
+      skip_profile_detection: true,
+      export_method: "enterprise",
+      export_options: {
+        provisioningProfiles: {
+          "#{app_bundle_id}": "com.sicpa.test.IPSCustom Enterprise"
+        }
+      }
+    )
+    upload_DeployDate
+  ensure
+    delete_keychain(
+      name: keychain_name
+    )
+  end
+
+  #
+  # Delivery lanes
+  #
+
+  desc "Upload DeployGate"
+  lane :upload_DeployDate do #|options|
+    deploygate(
+        api_token: "029b03c2-931f-42af-94dc-4714e96e8371",      #ENV["DEPLOYGATE_API_KEY"],
+        user: "lngyeen",                                        #ENV["DEPLOYGATE_USERNAME"],
+        # ipa: "#{options[:ipa]}",
+        message: "Build " + get_version_number(target: target_name) + "_" + get_build_number
+    )
+  end
+
+  desc "Upload AppStore"
+  lane :deliverToAppStore do
+    deliver(
+      submit_for_review: false,
+      automatic_release: false,
+      phased_release: true,
+      force: true, # Skip HTMl report verification
+      skip_metadata: false,
+      skip_screenshots: true,
+      skip_binary_upload: false
+    )
+  end
+
+  #
+  # Private lanes
+  #
+
+  desc "Prepare keychain and certificate"
+  private_lane :prepare_keychain_and_certificate do
+    create_build_keychain
+    import_all_certificates
+    import_provisioning_profiles
+  end
+
+  desc "Create build keychain"
+  private_lane :create_build_keychain do
+    delete_keychain(name: keychain_name) if File.exists? File.expand_path("~/Library/Keychains/#{keychain_name}-db")
+     create_keychain(
+      name: keychain_name,
+      password: keychain_password,
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: false
+    )
+  end
+
+  desc "Import certificates"
+  private_lane :import_all_certificates do
+    #register_devices(devices_file: "./fastlane/devices.txt")
+
+    # match(
+    #   type: "adhoc",
+    #   app_identifier: [
+    #     "my.app.identifier"
+    #   ]
+    # )
+    # match(
+    #   type: "development",
+    #   app_identifier: [
+    #     "my.app.identifier"
+    #   ]
+    # )
+    # match(
+    #   type: "appstore",
+    #   app_identifier: [
+    #     "my.app.identifier"
+    #   ]
+    # )
+
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dev.cer"
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dev.p12",
+      certificate_password: "12345678"      #ENV["PWD_P12"]
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dis.cer"
+    )
+    import_certificate(
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      certificate_path: "./scripts/certs/dis.p12",
+      certificate_password: "12345678"      #ENV["PWD_P12"]
+    )
+  end
+
+  desc "Import provisioning profiles"
+  private_lane :import_provisioning_profiles do
+    install_provisioning_profile(path: "./scripts/profiles/Development.mobileprovision")
+    install_provisioning_profile(path: "./scripts/profiles/AdHoc-Distribution.mobileprovision")
+    install_provisioning_profile(path: "./scripts/profiles/Enterprise-Distribution.mobileprovision")
+  end
+
+  desc "Setup jenkins"
+  private_lane :setup_jenkins_keychain do
+    setup_jenkins(
+      force: true,
+      unlock_keychain: true,
+      set_default_keychain: true,
+      keychain_path: "~/Library/Keychains/#{keychain_name}-db",
+      keychain_password: keychain_password,
+      set_code_signing_identity: true,
+      output_directory: build_folder
+    )
+  end
+
+  desc "Increment build number and commit changes to github"
+  private_lane :incrementBuildNumberAndCommit do
+    ensure_git_status_clean
+    build_number = increment_build_number
+    commit_version_bump(message: "[skip ci] Version Bump to #{build_number}")
+    push_to_git_remote()
+  end
+
+
+  desc "Make build folder"
+  private_lane :create_build_folder do
+    sh "mkdir -p #{build_folder}"
+  end
+end

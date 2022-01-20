@@ -9,17 +9,20 @@ import Reusable
 import RxCocoa
 import RxSwift
 import UIKit
+import RxFlow
 
 extension UITableViewCell: Reusable {}
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, Stepper {
     @IBOutlet var tableView: UITableView!
     private let disposeBag = DisposeBag()
     let names = Observable.just(["Register",
                                  "Fetching Data",
                                  "Networking Model",
                                  "RxCocoa"])
-
+    // Stepper conformances
+    let steps = PublishRelay<Step>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -49,17 +52,17 @@ private extension HomeViewController {
                 
                 switch selectedRowIndexPath.row {
                 case 0:
-                    let registerVC = RegisterViewController()
-                    self?.navigationController?.pushViewController(registerVC, animated: true)
+                    self?.steps.accept(MainSteps.registerScreenIsRequired)
+                    
                 case 1:
-                    let assembly = MusicListAssembly()
-                    self?.navigationController?.pushViewController(assembly.build(), animated: true)
+                    self?.steps.accept(MainSteps.allMusicIsRequired)
+                    
                 case 2:
-                    let assembly = CocktailCategoriesAssembly()
-                    self?.navigationController?.pushViewController(assembly.build(), animated: true)
+                    self?.steps.accept(MainSteps.cocktailCategoriesIsRequired)
+                    
                 case 3:
-                    let assembly = WeatherCityAssembly()
-                    self?.navigationController?.pushViewController(assembly.build(), animated: true)
+                    self?.steps.accept(MainSteps.weatherCityIsRequired)
+                    
                 default: break
                 }
             }

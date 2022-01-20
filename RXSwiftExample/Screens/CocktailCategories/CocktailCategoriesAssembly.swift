@@ -12,7 +12,7 @@ class CocktailCategoriesAssembly: Assembly {
 
     func build() -> CocktailCategoriesViewController {
         let controller = CocktailCategoriesViewController()
-        let router = CocktailCategoriesRouter(viewController: controller)
+        let router = CocktailCategoriesRouter()
         let intoractor = CocktailCategoriesInteractorImpl(service: CocktailServiceImpl())
         let dependencies = CocktailCategoriesPresenterDependencies(router: router, interactor: intoractor)
         let presenter = CocktailCategoriesPresenterImpl(dependencies: dependencies)

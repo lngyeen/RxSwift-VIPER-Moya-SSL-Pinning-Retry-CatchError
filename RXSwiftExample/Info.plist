@@ -21,9 +21,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Search weather via your location</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Search weather via your location</string>
 </dict>
 </plist>

@@ -12,7 +12,7 @@ import UIKit
 
 class ChangeAvatarViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     private let avatars: Observable<[String]> = Observable.just(Array(1 ... 12).map { "avatar_\($0)" })
     
     private let selectedPhotosSubject = PublishSubject<UIImage?>()

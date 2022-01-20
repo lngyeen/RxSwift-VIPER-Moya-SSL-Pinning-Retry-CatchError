@@ -21,6 +21,7 @@ class DrinkListViewController: BaseViewController {
     var presenter: DrinkListPresenter?
 
     // MARK: - Private properties
+
     private let refreshControl = UIRefreshControl()
     private let disposeBag = DisposeBag()
 
@@ -48,11 +49,14 @@ class DrinkListViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         // show drink detail trigger
-        tableView.rx.modelSelected(Drink.self).do { [tableView] (_: Drink) in
-            if let selectedRowIndexPath = tableView!.indexPathForSelectedRow {
-                tableView!.deselectRow(at: selectedRowIndexPath, animated: true)
+        tableView
+            .rx
+            .modelSelected(Drink.self).do { [tableView] (_: Drink) in
+                if let selectedRowIndexPath = tableView!.indexPathForSelectedRow {
+                    tableView!.deselectRow(at: selectedRowIndexPath, animated: true)
+                }
             }
-        }.bind(to: presenter.inputs.showDrinkDetailTrigger)
+            .bind(to: presenter.inputs.showDrinkDetailTrigger)
             .disposed(by: disposeBag)
     }
     
@@ -76,6 +80,14 @@ class DrinkListViewController: BaseViewController {
                 cell.nameLabel.text = drink.strDrink
                 cell.thumbnailImageView.kf.setImage(with: URL(string: drink.strDrinkThumb)!)
             }.disposed(by: disposeBag)
+        
+        presenter?
+            .outputs
+            .category
+            .subscribe(onNext: { [weak self] category in
+                self?.title = category.strCategory
+            })
+            .disposed(by: disposeBag)
         
         presenter?
             .outputs

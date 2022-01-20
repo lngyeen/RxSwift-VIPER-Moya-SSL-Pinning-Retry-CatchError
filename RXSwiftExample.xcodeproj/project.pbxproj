@@ -19,6 +19,7 @@
 		F88E219A27731D9F00E32D4F /* RXSwiftExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E219927731D9F00E32D4F /* RXSwiftExampleTests.swift */; };
 		F88E21A427731D9F00E32D4F /* RXSwiftExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E21A327731D9F00E32D4F /* RXSwiftExampleUITests.swift */; };
 		F88E21A627731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E21A527731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift */; };
+		F88E415F2783EB3E0003693F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E415E2783EB3E0003693F /* SecureStore.swift */; };
 		F88EBFAC27772D17007FFF9E /* DrinkListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88EBFA627772D17007FFF9E /* DrinkListPresenter.swift */; };
 		F88EBFAD27772D17007FFF9E /* DrinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88EBFA727772D17007FFF9E /* DrinkListViewController.swift */; };
 		F88EBFAE27772D17007FFF9E /* DrinkListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88EBFA827772D17007FFF9E /* DrinkListAssembly.swift */; };
@@ -72,6 +73,9 @@
 		F89649F32776ED440030E322 /* CocktailCategoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89649EF2776ED440030E322 /* CocktailCategoriesRouter.swift */; };
 		F89649F42776ED440030E322 /* CocktailCategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89649F02776ED440030E322 /* CocktailCategoriesInteractor.swift */; };
 		F8A2A8012775BDEA00B251D9 /* MusicErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2A8002775BDEA00B251D9 /* MusicErrorResponse.swift */; };
+		F8A2B928277CBC3600C81878 /* MainStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B925277CBC3600C81878 /* MainStepper.swift */; };
+		F8A2B929277CBC3600C81878 /* MainSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B926277CBC3600C81878 /* MainSteps.swift */; };
+		F8A2B92A277CBC3600C81878 /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B927277CBC3600C81878 /* MainFlow.swift */; };
 		F8ABC7ED27794DAD00013E35 /* RefreshTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ABC7EC27794DAD00013E35 /* RefreshTokenProvider.swift */; };
 		F8F8A6CC2773257000A914AE /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8A6CA2773257000A914AE /* RegisterViewController.swift */; };
 		F8F8A6CD2773257000A914AE /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8F8A6CB2773257000A914AE /* RegisterViewController.xib */; };
@@ -127,6 +131,7 @@
 		F88E219F27731D9F00E32D4F /* RXSwiftExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RXSwiftExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88E21A327731D9F00E32D4F /* RXSwiftExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXSwiftExampleUITests.swift; sourceTree = "<group>"; };
 		F88E21A527731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXSwiftExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F88E415E2783EB3E0003693F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		F88EBFA627772D17007FFF9E /* DrinkListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkListPresenter.swift; sourceTree = "<group>"; };
 		F88EBFA727772D17007FFF9E /* DrinkListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkListViewController.swift; sourceTree = "<group>"; };
 		F88EBFA827772D17007FFF9E /* DrinkListAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkListAssembly.swift; sourceTree = "<group>"; };
@@ -180,6 +185,9 @@
 		F89649EF2776ED440030E322 /* CocktailCategoriesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailCategoriesRouter.swift; sourceTree = "<group>"; };
 		F89649F02776ED440030E322 /* CocktailCategoriesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailCategoriesInteractor.swift; sourceTree = "<group>"; };
 		F8A2A8002775BDEA00B251D9 /* MusicErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicErrorResponse.swift; sourceTree = "<group>"; };
+		F8A2B925277CBC3600C81878 /* MainStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainStepper.swift; sourceTree = "<group>"; };
+		F8A2B926277CBC3600C81878 /* MainSteps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSteps.swift; sourceTree = "<group>"; };
+		F8A2B927277CBC3600C81878 /* MainFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 		F8ABC7EC27794DAD00013E35 /* RefreshTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenProvider.swift; sourceTree = "<group>"; };
 		F8F8A6CA2773257000A914AE /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F8F8A6CB2773257000A914AE /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
@@ -271,15 +279,15 @@
 		F88E218127731D9B00E32D4F /* RXSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
+				F88E415D2783EB2A0003693F /* AppStorage */,
+				F89A8C68277D3B3C00C521B7 /* AppDelegate */,
+				F8A2B924277CBC2A00C81878 /* Coordinate */,
 				F88EBFCD277761E1007FFF9E /* Utils */,
 				F892BFC327745F690067FC7E /* Environment */,
 				F892BFAA277409E70067FC7E /* API */,
 				F892BFC4277477140067FC7E /* Extensions */,
 				F8F8A6D82773314600A914AE /* Models */,
 				F8F8A6C82773254200A914AE /* Screens */,
-				F88E218227731D9B00E32D4F /* AppDelegate.swift */,
-				F88E218427731D9B00E32D4F /* SceneDelegate.swift */,
-				F88E218627731D9B00E32D4F /* HomeViewController.swift */,
 				F88E218827731D9B00E32D4F /* Main.storyboard */,
 				F88E218B27731D9F00E32D4F /* Assets.xcassets */,
 				F88E218D27731D9F00E32D4F /* LaunchScreen.storyboard */,
@@ -303,6 +311,14 @@
 				F88E21A527731D9F00E32D4F /* RXSwiftExampleUITestsLaunchTests.swift */,
 			);
 			path = RXSwiftExampleUITests;
+			sourceTree = "<group>";
+		};
+		F88E415D2783EB2A0003693F /* AppStorage */ = {
+			isa = PBXGroup;
+			children = (
+				F88E415E2783EB3E0003693F /* SecureStore.swift */,
+			);
+			path = AppStorage;
 			sourceTree = "<group>";
 		};
 		F88EBFA427772CD2007FFF9E /* Drinks */ = {
@@ -454,14 +470,42 @@
 			path = CocktailCategories;
 			sourceTree = "<group>";
 		};
+		F89A8C68277D3B3C00C521B7 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				F88E218227731D9B00E32D4F /* AppDelegate.swift */,
+				F88E218427731D9B00E32D4F /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		F8A2B924277CBC2A00C81878 /* Coordinate */ = {
+			isa = PBXGroup;
+			children = (
+				F8A2B927277CBC3600C81878 /* MainFlow.swift */,
+				F8A2B925277CBC3600C81878 /* MainStepper.swift */,
+				F8A2B926277CBC3600C81878 /* MainSteps.swift */,
+			);
+			path = Coordinate;
+			sourceTree = "<group>";
+		};
+		F8A2B92B277CBDD900C81878 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F88E218627731D9B00E32D4F /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		F8F8A6C82773254200A914AE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				F8A2B92B277CBDD900C81878 /* Home */,
 				F8921559277BF4CF0060C886 /* BaseViewController */,
+				F89649CD2776BD8B0030E322 /* MusicDetail */,
 				F88EBFC027774A60007FFF9E /* Weather */,
 				F88EBFA427772CD2007FFF9E /* Drinks */,
 				F89649E82776ECBB0030E322 /* CocktailCategories */,
-				F89649CD2776BD8B0030E322 /* MusicDetail */,
 				F8F8A6DB277335FC00A914AE /* Music */,
 				F8F8A6CE277326E500A914AE /* ChangeAvatar */,
 				F8F8A6C92773254E00A914AE /* Register */,
@@ -811,6 +855,7 @@
 				F88EBFBD2777430C007FFF9E /* WeatherErrorResponse.swift in Sources */,
 				F89649F12776ED440030E322 /* CocktailCategoriesAssembly.swift in Sources */,
 				F892BFB32774162F0067FC7E /* MusicService.swift in Sources */,
+				F88E415F2783EB3E0003693F /* SecureStore.swift in Sources */,
 				F88EE7A3277807F70070A0C3 /* MKMapView+Rx.swift in Sources */,
 				F89649DF2776DA380030E322 /* CocktailEndpoint.swift in Sources */,
 				F892BFAE27740DC20067FC7E /* ApiPresentableError.swift in Sources */,
@@ -822,6 +867,7 @@
 				F88EE79F2777F89E0070A0C3 /* UIView+Rx.swift in Sources */,
 				F89649F42776ED440030E322 /* CocktailCategoriesInteractor.swift in Sources */,
 				F89649EB2776ECE20030E322 /* CocktailCategoriesViewController.swift in Sources */,
+				F8A2B92A277CBC3600C81878 /* MainFlow.swift in Sources */,
 				F88EBFBC2777430C007FFF9E /* WeatherService.swift in Sources */,
 				F8ABC7ED27794DAD00013E35 /* RefreshTokenProvider.swift in Sources */,
 				F89649DA2776CFDC0030E322 /* MusicListAssembly.swift in Sources */,
@@ -838,12 +884,14 @@
 				F8F8A6CC2773257000A914AE /* RegisterViewController.swift in Sources */,
 				F88EBFBF2777444A007FFF9E /* Weather.swift in Sources */,
 				F89649E32776DA530030E322 /* CocktailErrorResponse.swift in Sources */,
+				F8A2B928277CBC3600C81878 /* MainStepper.swift in Sources */,
 				F89649F32776ED440030E322 /* CocktailCategoriesRouter.swift in Sources */,
 				F892BFC22774394F0067FC7E /* MusicListPresenter.swift in Sources */,
 				F89649D52776CA850030E322 /* MusicListRouter.swift in Sources */,
 				F892BFB927741E290067FC7E /* Environment.swift in Sources */,
 				F88EBFCC27774BD6007FFF9E /* WeatherCityInteractor.swift in Sources */,
 				F89649E72776DE840030E322 /* Drink.swift in Sources */,
+				F8A2B929277CBC3600C81878 /* MainSteps.swift in Sources */,
 				F88EBFB127772D17007FFF9E /* DrinkListRouter.swift in Sources */,
 				F89649D72776CBD10030E322 /* MusicDetailAssembly.swift in Sources */,
 				F88EBFCA27774BD6007FFF9E /* WeatherCityRouter.swift in Sources */,
@@ -904,7 +952,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		F88E21A727731D9F00E32D4F /* Debug */ = {
+		F88E21A727731D9F00E32D4F /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -963,9 +1011,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = Development;
 		};
-		F88E21A827731D9F00E32D4F /* Release */ = {
+		F88E21A827731D9F00E32D4F /* Pre-production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1018,9 +1066,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = "Pre-production";
 		};
-		F88E21AA27731D9F00E32D4F /* Debug */ = {
+		F88E21AA27731D9F00E32D4F /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F39ECB724F48E3B53019EF91 /* Pods-RXSwiftExample.debug.xcconfig */;
 			buildSettings = {
@@ -1028,12 +1076,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 493KGFEVC3;
+				DEVELOPMENT_TEAM = 38X6ES8UH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RXSwiftExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "RxSwift-Dev";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Search weather via your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1041,15 +1091,15 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxswift.example.RXSwiftExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sicpa.test.IPSCustom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Debug;
+			name = Development;
 		};
-		F88E21AB27731D9F00E32D4F /* Release */ = {
+		F88E21AB27731D9F00E32D4F /* Pre-production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 690E645595B0C4596848EE16 /* Pods-RXSwiftExample.release.xcconfig */;
 			buildSettings = {
@@ -1057,12 +1107,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 493KGFEVC3;
+				DEVELOPMENT_TEAM = 38X6ES8UH5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RXSwiftExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "RxSwift-Pre-prod";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Search weather via your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1070,15 +1122,15 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rxswift.example.RXSwiftExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sicpa.test.IPSCustom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Release;
+			name = "Pre-production";
 		};
-		F88E21AD27731D9F00E32D4F /* Debug */ = {
+		F88E21AD27731D9F00E32D4F /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7CFA051791D2DBF79E3FDFCA /* Pods-RXSwiftExampleTests.debug.xcconfig */;
 			buildSettings = {
@@ -1102,9 +1154,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RXSwiftExample.app/RXSwiftExample";
 			};
-			name = Debug;
+			name = Development;
 		};
-		F88E21AE27731D9F00E32D4F /* Release */ = {
+		F88E21AE27731D9F00E32D4F /* Pre-production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49F2BED202135E50D8BE6076 /* Pods-RXSwiftExampleTests.release.xcconfig */;
 			buildSettings = {
@@ -1128,9 +1180,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RXSwiftExample.app/RXSwiftExample";
 			};
-			name = Release;
+			name = "Pre-production";
 		};
-		F88E21B027731D9F00E32D4F /* Debug */ = {
+		F88E21B027731D9F00E32D4F /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 377564CD8D034DC744BB0B65 /* Pods-RXSwiftExample-RXSwiftExampleUITests.debug.xcconfig */;
 			buildSettings = {
@@ -1152,9 +1204,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = RXSwiftExample;
 			};
-			name = Debug;
+			name = Development;
 		};
-		F88E21B127731D9F00E32D4F /* Release */ = {
+		F88E21B127731D9F00E32D4F /* Pre-production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50188C66945C5B6D0C807C92 /* Pods-RXSwiftExample-RXSwiftExampleUITests.release.xcconfig */;
 			buildSettings = {
@@ -1176,7 +1228,143 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = RXSwiftExample;
 			};
-			name = Release;
+			name = "Pre-production";
+		};
+		F8AF050B2798E265005241D0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Production;
+		};
+		F8AF050C2798E265005241D0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 690E645595B0C4596848EE16 /* Pods-RXSwiftExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 38X6ES8UH5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RXSwiftExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "RxSwift-Prod";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Search weather via your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Search weather via your location";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sicpa.test.IPSCustom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Production;
+		};
+		F8AF050D2798E265005241D0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49F2BED202135E50D8BE6076 /* Pods-RXSwiftExampleTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 493KGFEVC3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rxswift.example.RXSwiftExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RXSwiftExample.app/RXSwiftExample";
+			};
+			name = Production;
+		};
+		F8AF050E2798E265005241D0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50188C66945C5B6D0C807C92 /* Pods-RXSwiftExample-RXSwiftExampleUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 493KGFEVC3;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rxswift.example.RXSwiftExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RXSwiftExample;
+			};
+			name = Production;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1184,38 +1372,42 @@
 		F88E217A27731D9B00E32D4F /* Build configuration list for PBXProject "RXSwiftExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F88E21A727731D9F00E32D4F /* Debug */,
-				F88E21A827731D9F00E32D4F /* Release */,
+				F88E21A727731D9F00E32D4F /* Development */,
+				F88E21A827731D9F00E32D4F /* Pre-production */,
+				F8AF050B2798E265005241D0 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Pre-production";
 		};
 		F88E21A927731D9F00E32D4F /* Build configuration list for PBXNativeTarget "RXSwiftExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F88E21AA27731D9F00E32D4F /* Debug */,
-				F88E21AB27731D9F00E32D4F /* Release */,
+				F88E21AA27731D9F00E32D4F /* Development */,
+				F88E21AB27731D9F00E32D4F /* Pre-production */,
+				F8AF050C2798E265005241D0 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Pre-production";
 		};
 		F88E21AC27731D9F00E32D4F /* Build configuration list for PBXNativeTarget "RXSwiftExampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F88E21AD27731D9F00E32D4F /* Debug */,
-				F88E21AE27731D9F00E32D4F /* Release */,
+				F88E21AD27731D9F00E32D4F /* Development */,
+				F88E21AE27731D9F00E32D4F /* Pre-production */,
+				F8AF050D2798E265005241D0 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Pre-production";
 		};
 		F88E21AF27731D9F00E32D4F /* Build configuration list for PBXNativeTarget "RXSwiftExampleUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F88E21B027731D9F00E32D4F /* Debug */,
-				F88E21B127731D9F00E32D4F /* Release */,
+				F88E21B027731D9F00E32D4F /* Development */,
+				F88E21B127731D9F00E32D4F /* Pre-production */,
+				F8AF050E2798E265005241D0 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Pre-production";
 		};
 /* End XCConfigurationList section */
 	};

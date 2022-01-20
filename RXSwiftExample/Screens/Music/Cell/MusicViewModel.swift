@@ -5,30 +5,54 @@
 //  Created by Nguyen Truong Luu on 12/29/21.
 //
 
+import Action
 import Foundation
 import RxSwift
+
+struct MusicViewModelDependencies {
+    let interactor: MusicListInteractor
+}
 
 protocol MusicViewModelInputs {
     var likeButtonTrigger: PublishSubject<Bool> { get }
 }
 
 protocol MusicViewModelOutputs {
-    var likeTrigger: Observable<Bool> { get }
-    var musicUpdatedTrigger: Observable<MusicViewModel> { get }
+    var error: Observable<Error> { get }
 }
 
-class MusicViewModel: MusicViewModelInputs, MusicViewModelOutputs {
+protocol MusicViewModel {
+    var dependencies: MusicViewModelDependencies { get }
+    var inputs: MusicViewModelInputs { get }
+    var outputs: MusicViewModelOutputs { get }
+    var lastLikeStatus: Bool { get }
+    var music: Music { get }
+    var id: String { get }
+    var name: String { get }
+    var artworkUrl100: String { get }
+    var artistName: String { get }
+}
+
+class MusicViewModelImpl: MusicViewModel, MusicViewModelInputs, MusicViewModelOutputs {
     var inputs: MusicViewModelInputs { return self }
     var outputs: MusicViewModelOutputs { return self }
+    let dependencies: MusicViewModelDependencies
+
+    private lazy var likeMusicAction: Action<(Music, Bool), Music> = {
+        Action { likeMusic in
+            self.dependencies.interactor.likeMusic(likeMusic.0, like: likeMusic.1)
+        }
+    }()
 
     // MARK: - Inputs
 
     let likeButtonTrigger = PublishSubject<Bool>()
-    
+
     // MARK: - Outputs
-    
-    var likeTrigger: Observable<Bool> { return  likePublishSubject.asObserver() }
-    var musicUpdatedTrigger: Observable<MusicViewModel> { return musicUpdatedPublishSubject.asObservable() }
+
+    var error: Observable<Error> {
+        likeMusicAction.underlyingError
+    }
 
     // MARK: - Properties
 
@@ -45,15 +69,30 @@ class MusicViewModel: MusicViewModelInputs, MusicViewModelOutputs {
     private(set) var music: Music
     private let musicUpdatedPublishSubject = PublishSubject<MusicViewModel>()
     private let likePublishSubject = PublishSubject<Bool>()
-    
-    init(music: Music) {
+    private var likeTrigger: Observable<Bool> { return likePublishSubject.asObserver() }
+
+    init(music: Music, dependencies: MusicViewModelDependencies) {
         self.music = music
+        self.dependencies = dependencies
         lastLikeStatus = music.isLiked
+
         likeButtonTrigger
-            .do(onNext: { [weak self] _ in self?.lastLikeStatus.toggle() })
-            .debounce(RxTimeInterval.milliseconds(400),
+            .do(onNext: { [weak self] isLiked in self?.lastLikeStatus = isLiked })
+            .debounce(RxTimeInterval.milliseconds(40),
                       scheduler: MainScheduler.instance)
-            .bind(to: likePublishSubject)
+            .filter { [weak self] isLiked in
+                isLiked != self?.music.isLiked
+            }
+            .map { isLiked in
+                (self.music, isLiked)
+            }
+            .bind(to: likeMusicAction.inputs)
+            .disposed(by: disposeBag)
+
+        likeMusicAction.elements
+            .subscribe(onError: { _ in
+                self.updateMusic(self.music)
+            })
             .disposed(by: disposeBag)
     }
 
