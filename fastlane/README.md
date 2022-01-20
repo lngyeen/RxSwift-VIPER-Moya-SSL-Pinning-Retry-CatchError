@@ -23,14 +23,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Run Unit tests and UI tests
 
-### ios install_cocoa_pods
-
-```sh
-[bundle exec] fastlane ios install_cocoa_pods
-```
-
-Cocoapods
-
 ### ios build_local_dev
 
 ```sh
@@ -63,13 +55,21 @@ Build enterprise(in-house) app in pre-prod environment in local machine
 
 Build enterprise(in-house) app in prod environment in local machine
 
+### ios increment_build_number_and_commit
+
+```sh
+[bundle exec] fastlane ios increment_build_number_and_commit
+```
+
+Increment build number and commit changes to github
+
 ### ios build_develop
 
 ```sh
 [bundle exec] fastlane ios build_develop
 ```
 
-Build dev
+Build dev and upload deploygate
 
 ### ios build_pre_prod_ad_hoc
 
@@ -103,10 +103,10 @@ Build prod Ad-Hoc
 
 Build Prod Enterprise
 
-### ios upload_deploy_gate
+### ios upload_DeployGate
 
 ```sh
-[bundle exec] fastlane ios upload_deploy_gate
+[bundle exec] fastlane ios upload_DeployGate
 ```
 
 Upload DeployGate
@@ -118,6 +118,38 @@ Upload DeployGate
 ```
 
 Upload AppStore
+
+### ios send_slack_success
+
+```sh
+[bundle exec] fastlane ios send_slack_success
+```
+
+Slack send success
+
+### ios send_slack_unstable
+
+```sh
+[bundle exec] fastlane ios send_slack_unstable
+```
+
+Slack send unstable
+
+### ios send_slack_failure
+
+```sh
+[bundle exec] fastlane ios send_slack_failure
+```
+
+Slack send failure
+
+### ios send_slack
+
+```sh
+[bundle exec] fastlane ios send_slack
+```
+
+Send slack
 
 ----
 
