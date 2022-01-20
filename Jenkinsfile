@@ -68,23 +68,23 @@ pipeline {
         //     }
         // }
 
-        // stage('Run Tests') {
-        //     when {
-        //         expression {
-        //             return env.shouldBuild != "false"
-        //         }
-        //     }
-        //     steps {
-        //         script {
-        //             try {
-        //                 sh "fastlane runTests"
-        //             } catch(exc) {
-        //                 currentBuild.result = "UNSTABLE"
-        //                 error('There are failed tests.')
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Run Tests') {
+            when {
+                expression {
+                    return env.shouldBuild != "false"
+                }
+            }
+            steps {
+                script {
+                    try {
+                        sh "fastlane runTests"
+                    } catch(exc) {
+                        currentBuild.result = "UNSTABLE"
+                        error('There are failed tests.')
+                    }
+                }
+            }
+        }
 
         stage('Build develop') {
             when {
